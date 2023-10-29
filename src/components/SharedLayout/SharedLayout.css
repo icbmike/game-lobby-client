@@ -1,0 +1,7 @@
+.sharedLayout {
+    max-width: 1000px;
+    margin: 20px auto 0 auto;
+    padding: 20px;
+    border: 1px solid #FFEBE7;
+    border-radius: 5px;
+}
