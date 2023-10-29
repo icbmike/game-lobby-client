@@ -1,3 +1,5 @@
+@import "./styles/vars.scss";
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,16 +8,16 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: $fontFamily;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #252627;
-  color: #FFEBE7;
+  background: $dark;
+  color: $light;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@import "./styles/styles.scss";

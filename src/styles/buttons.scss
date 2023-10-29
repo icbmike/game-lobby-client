@@ -1,0 +1,13 @@
+@import "./vars.scss";
+
+.button {
+    border-radius: 5px;
+    padding: $unitSize * 3;
+    color: $light;
+    background-color: $lightBlue;
+    text-decoration: none;
+    font-family: $fontFamily;
+    font-size: $unitSize * 4;
+    font-weight: 600;
+    border: 2px solid $light;
+}

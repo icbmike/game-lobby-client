@@ -1,0 +1,24 @@
+@import "./vars.scss";
+
+$sizes: ('-small': 1, '': 2, '-large': 3, '-xlarge': 4, '-2xlarge': 5);
+$positions: 'top', 'left', 'bottom', 'right';
+
+@each $size, $multiplier in $sizes {
+    @each $position in $positions {
+        .margin-#{$position}#{$size} {
+            margin-#{$position}: $unitSize * $multiplier;
+        }
+
+        .padding-#{$position}#{$size} {
+            padding-#{$position}: $unitSize * $multiplier;
+        }
+    }
+
+    .margin#{$size} {
+        margin: $unitSize * $multiplier;
+    }
+
+    .padding#{$size} {
+        padding: $unitSize * $multiplier;
+    }
+}
