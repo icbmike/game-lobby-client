@@ -10,4 +10,16 @@
     font-size: $unitSize * 4;
     font-weight: 600;
     border: 2px solid $light;
+    cursor: pointer;
+
+    &:active {
+        border: 2px solid $darkBlue;
+    }
+
+    &:disabled {
+        border: 2px solid $light;
+        background-color: gray;
+        color: darkslategray;
+        cursor: not-allowed;
+    }
 }

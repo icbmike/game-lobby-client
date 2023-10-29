@@ -1,13 +1,21 @@
 import { ChangeEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { joinLobbyAction } from "../../redux/actions";
+
+const nonAlphaNumeric = /[^A-Za-z0-9]/;
 
 export const IndexRoute = () => {
+  const dispatch = useDispatch();
   const [lobbyCode, setLobbyCode] = useState("");
 
   const onLobbyCodeChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setLobbyCode(e.target.value.toUpperCase());
-  }
+    const newLobbyCode = e.target.value.toUpperCase().replace(nonAlphaNumeric, '');
+    setLobbyCode(newLobbyCode);
+  };
 
-  const onJoinLobbyClick = () => {};
+  const onJoinLobbyClick = () => {
+    dispatch(joinLobbyAction({ lobbyCode }));
+  };
 
   return (
     <>
@@ -24,12 +32,14 @@ export const IndexRoute = () => {
         </a>
         <div>
           <input
+            maxLength={5}
             className="input margin-right"
             placeholder="Lobby Code"
             onChange={onLobbyCodeChange}
             value={lobbyCode}
+            accept=""
           />
-          <button className="button" onClick={onJoinLobbyClick}>
+          <button disabled={lobbyCode.length !== 5} className="button" onClick={onJoinLobbyClick}>
             Join Lobby
           </button>
         </div>
