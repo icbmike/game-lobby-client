@@ -11,6 +11,18 @@
     font-weight: 600;
     border: 2px solid $light;
     cursor: pointer;
+    height: 48px;
+
+    &--is-loading {
+      position: relative;
+      padding: 0;
+      width: 120px;
+
+      .loader {
+        left: 51px;
+        top: -16px;
+      }
+    }
 
     &:active {
         border: 2px solid $darkBlue;
