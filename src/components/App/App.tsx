@@ -15,7 +15,7 @@ export const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<IndexRoute />} />
-            <Route path="/:lobby" element={<LobbyRoute />} />
+            <Route path="/lobby/:lobby" element={<LobbyRoute />} />
             <Route path="/newlobby" element={<NewLobbyRoute />} />
           </Routes>
         </BrowserRouter>
