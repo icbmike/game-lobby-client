@@ -1,5 +1,5 @@
 import { combineReducers, configureStore, StateFromReducersMapObject } from "@reduxjs/toolkit";
-import { createLobbyEffect, lobbyCreatedEffect } from "./effect";
+import { createLobbyEffect, getLobbyEffect, lobbyCreatedEffect } from "./effect";
 import { reducer } from "./reducer";
 
 const reducerMap = {
@@ -13,7 +13,8 @@ export const store = configureStore(
         reducer: combineReducers(reducerMap), 
         middleware: [
             createLobbyEffect,
-            lobbyCreatedEffect
+            lobbyCreatedEffect,
+            getLobbyEffect
         ]
     }
 );

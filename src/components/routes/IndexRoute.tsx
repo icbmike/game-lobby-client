@@ -1,11 +1,8 @@
 import { ChangeEvent, useState } from "react";
-import { useDispatch } from "react-redux";
-import { joinLobbyAction } from "../../redux/actions";
 
 const nonAlphaNumeric = /[^A-Za-z0-9]/;
 
 export const IndexRoute = () => {
-  const dispatch = useDispatch();
   const [lobbyCode, setLobbyCode] = useState("");
 
   const onLobbyCodeChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -14,7 +11,7 @@ export const IndexRoute = () => {
   };
 
   const onJoinLobbyClick = () => {
-    dispatch(joinLobbyAction({ lobbyCode }));
+    window.location.href = `/lobby/${lobbyCode}`
   };
 
   return (

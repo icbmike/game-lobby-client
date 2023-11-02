@@ -1,28 +1,30 @@
+import { get, post } from "../api";
 import { Lobby } from "../models";
-import { createLobbyAction, createLobbyDoneAction, createLobbyFailedAction } from "./actions";
+import { createLobbyAction, createLobbyDoneAction, createLobbyFailedAction, getLobbyAction, getLobbyDoneAction, getLobbyFailedAction } from "./actions";
 import { createMikeEffect } from "./createMikeEffect";
 
-export const createLobbyEffect = createMikeEffect(createLobbyAction, async ({payload}) => {
+export const createLobbyEffect = createMikeEffect(createLobbyAction, async ({ payload }) => {
     try {
-        const response = await fetch('/api/lobbies', {
-            method: 'POST',
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({lobbySize: payload.lobbySize})
-        });
+        const lobby = await post<Lobby>('/api/lobbies', { lobbySize: payload.lobbySize });
 
-        const body = await response.json() as Lobby; 
-
-        return createLobbyDoneAction({lobby: body});
-    } catch(error: unknown){
-        return createLobbyFailedAction({ error: error as Error});
+        return createLobbyDoneAction({ lobby });
+    } catch (error: unknown) {
+        return createLobbyFailedAction({ error: error as Error });
     }
 });
 
-export const lobbyCreatedEffect = createMikeEffect(createLobbyDoneAction, async ({payload}) => {
-  const { code } = payload.lobby;
+export const lobbyCreatedEffect = createMikeEffect(createLobbyDoneAction, async ({ payload }) => {
+    const { code } = payload.lobby;
 
-  window.location.href = `/lobby/${code}`
+    window.location.href = `/lobby/${code}`
+});
+
+export const getLobbyEffect = createMikeEffect(getLobbyAction, async ({ payload }) => {
+    try {
+        const lobby = await get<Lobby>(`/api/lobbies/${payload.lobbyCode}`);
+
+        return getLobbyDoneAction({ lobby });
+    } catch (error: unknown) {
+        return getLobbyFailedAction({ error: error as Error });
+    }
 });
