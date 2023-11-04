@@ -20,4 +20,8 @@ code {
     monospace;
 }
 
+ul {
+  list-style-position: inside;
+}
+
 @import "./styles/styles.scss";

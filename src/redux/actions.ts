@@ -1,17 +1,20 @@
-import { createAction } from "@reduxjs/toolkit";
-import { Lobby } from "../models";
-import { createLoadAction } from "./createLoadAction";
+import { JoinLobbyResponse, Lobby } from "../models";
+import { createLoadAction as createRequestDoneFailedAction } from "./createLoadAction";
 
-export const joinLobbyAction = createAction<{ lobbyCode: string, name: string }>('joinLobby');
+export const [
+    joinLobbyAction, 
+    joinLobbyDoneAction, 
+    joinLobbyFailedAction
+] = createRequestDoneFailedAction<{ lobbyCode: string, name: string }, JoinLobbyResponse>('joinLobby');
 
 export const [
     getLobbyAction,
-    getLobbyDoneAction, 
+    getLobbyDoneAction,
     getLobbyFailedAction
-] =  createLoadAction<{ lobbyCode: string }, { lobby: Lobby }>('getLobby');
+] = createRequestDoneFailedAction<{ lobbyCode: string }, { lobby: Lobby }>('getLobby');
 
 export const [
-    createLobbyAction, 
-    createLobbyDoneAction, 
+    createLobbyAction,
+    createLobbyDoneAction,
     createLobbyFailedAction
-] = createLoadAction<{ lobbySize: number }, { lobby: Lobby }>('createLobby');
+] = createRequestDoneFailedAction<{ lobbySize: number }, { lobby: Lobby }>('createLobby');

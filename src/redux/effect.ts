@@ -1,6 +1,6 @@
 import { get, post } from "../api";
-import { Lobby } from "../models";
-import { createLobbyAction, createLobbyDoneAction, createLobbyFailedAction, getLobbyAction, getLobbyDoneAction, getLobbyFailedAction } from "./actions";
+import { JoinLobbyResponse, Lobby } from "../models";
+import { createLobbyAction, createLobbyDoneAction, createLobbyFailedAction, getLobbyAction, getLobbyDoneAction, getLobbyFailedAction, joinLobbyAction, joinLobbyDoneAction, joinLobbyFailedAction } from "./actions";
 import { createMikeEffect } from "./createMikeEffect";
 
 export const createLobbyEffect = createMikeEffect(createLobbyAction, async ({ payload }) => {
@@ -16,7 +16,7 @@ export const createLobbyEffect = createMikeEffect(createLobbyAction, async ({ pa
 export const lobbyCreatedEffect = createMikeEffect(createLobbyDoneAction, async ({ payload }) => {
     const { code } = payload.lobby;
 
-    window.location.href = `/lobby/${code}`
+    window.location.assign(`/lobby/${code}`);
 });
 
 export const getLobbyEffect = createMikeEffect(getLobbyAction, async ({ payload }) => {
@@ -28,3 +28,15 @@ export const getLobbyEffect = createMikeEffect(getLobbyAction, async ({ payload 
         return getLobbyFailedAction({ error: error as Error });
     }
 });
+
+export const joinLobbyEffect = createMikeEffect(joinLobbyAction, async ({ payload }) => {
+    try {
+        const response = await post<JoinLobbyResponse>(`/api/lobbies/${payload.lobbyCode}/players`, { name: payload.name });
+
+        localStorage.setItem(`lobby.${payload.lobbyCode}.player`, JSON.stringify(response.newPlayer));
+
+        return joinLobbyDoneAction(response);
+    } catch (error: unknown) {
+        return joinLobbyFailedAction({ error: error as Error });
+    }
+})

@@ -9,3 +9,8 @@ export interface Lobby {
     lobbySize?: number,
     createdDate: Date
 }
+
+export interface JoinLobbyResponse {
+    lobby: Lobby;
+    newPlayer: Player;
+}

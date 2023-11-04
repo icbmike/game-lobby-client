@@ -7,3 +7,5 @@ export const selectIsJoiningLobby = (state: TState) => state.lobbies.isJoiningLo
 export const selectIsLoadingLobby = (state: TState) => state.lobbies.isLoadingLobby;
 
 export const selectLobby = (state: TState) => state.lobbies.lobby;
+
+export const selectPlayer = (state: TState) => state.lobbies.player;

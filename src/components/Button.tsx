@@ -3,16 +3,16 @@ import { ReactNode } from "react";
 interface IProps {
   onClick: () => void;
   className?: string;
-  isDisabled: boolean;
+  isDisabled?: boolean;
   children: ReactNode;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 export const Button = ({
   className,
   children,
-  isLoading,
-  isDisabled,
+  isLoading = false,
+  isDisabled = false,
   onClick,
 }: IProps) => {
   const classes = ["button"];

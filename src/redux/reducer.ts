@@ -1,12 +1,13 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { Lobby } from "../models";
-import { createLobbyAction, createLobbyDoneAction, createLobbyFailedAction, getLobbyAction, getLobbyDoneAction, getLobbyFailedAction, joinLobbyAction } from "./actions";
+import { Lobby, Player } from "../models";
+import { createLobbyAction, createLobbyDoneAction, createLobbyFailedAction, getLobbyAction, getLobbyDoneAction, getLobbyFailedAction, joinLobbyAction, joinLobbyDoneAction, joinLobbyFailedAction } from "./actions";
 
 interface IState {
   isLoadingLobby: boolean;
   isJoiningLobby: boolean;
   isCreatingLobby: boolean;
   lobby?: Lobby;
+  player?: Player;
 }
 
 const initialState: IState = {
@@ -17,10 +18,6 @@ const initialState: IState = {
 
 export const reducer = createReducer(initialState, (builder) =>
   builder
-    .addCase(joinLobbyAction, state => ({
-      ...state,
-      isJoiningLobby: true,
-    }))
     .addCase(createLobbyAction, state => ({
       ...state,
       isCreatingLobby: true,
@@ -45,5 +42,18 @@ export const reducer = createReducer(initialState, (builder) =>
     .addCase(getLobbyFailedAction, state => ({
       ...state,
       isLoadingLobby: false
+    }))
+    .addCase(joinLobbyAction, state => ({
+      ...state,
+      isJoiningLobby: true
+    }))
+    .addCase(joinLobbyDoneAction, (state, { payload }) => ({
+      ...state,
+      isJoiningLobby: false,
+      lobby: payload.lobby,
+      player: payload.newPlayer
+    })).addCase(joinLobbyFailedAction, state => ({
+      ...state,
+      isJoiningLobby: false
     }))
 );
