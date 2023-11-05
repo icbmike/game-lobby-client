@@ -37,7 +37,6 @@ export const LobbyRoute = () => {
 
     return <>
         <h1 className="margin-bottom-xlarge">Lobby {lobbyCode}</h1>
-        <p className="margin-bottom-xlarge"><code>{JSON.stringify(lobby)}</code></p>
 
         <ul className="margin-bottom-xlarge">
             {lobby.players.map(p => <li key={p.id}>{p.name}</li>)}
@@ -52,5 +51,7 @@ export const LobbyRoute = () => {
               </div>
             : null
         }
+
+        <p className="margin-top-2xlarge"><code>{JSON.stringify(lobby)}</code></p>
     </>
 };

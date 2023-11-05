@@ -1,4 +1,5 @@
-import { JoinLobbyResponse, Lobby } from "../models";
+import { createAction } from "@reduxjs/toolkit";
+import { JoinLobbyResponse, Lobby, Player } from "../models";
 import { createLoadAction as createRequestDoneFailedAction } from "./createLoadAction";
 
 export const [
@@ -18,3 +19,5 @@ export const [
     createLobbyDoneAction,
     createLobbyFailedAction
 ] = createRequestDoneFailedAction<{ lobbySize: number }, { lobby: Lobby }>('createLobby');
+
+export const restoreSessionAction = createAction<{player: Player, lobbyCode: string}>('restoreSession');

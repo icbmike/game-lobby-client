@@ -1,6 +1,6 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { Lobby, Player } from "../models";
-import { createLobbyAction, createLobbyDoneAction, createLobbyFailedAction, getLobbyAction, getLobbyDoneAction, getLobbyFailedAction, joinLobbyAction, joinLobbyDoneAction, joinLobbyFailedAction } from "./actions";
+import { createLobbyAction, createLobbyDoneAction, createLobbyFailedAction, getLobbyAction, getLobbyDoneAction, getLobbyFailedAction, joinLobbyAction, joinLobbyDoneAction, joinLobbyFailedAction, restoreSessionAction } from "./actions";
 
 interface IState {
   isLoadingLobby: boolean;
@@ -52,8 +52,13 @@ export const reducer = createReducer(initialState, (builder) =>
       isJoiningLobby: false,
       lobby: payload.lobby,
       player: payload.newPlayer
-    })).addCase(joinLobbyFailedAction, state => ({
+    }))
+    .addCase(joinLobbyFailedAction, state => ({
       ...state,
       isJoiningLobby: false
+    }))
+    .addCase(restoreSessionAction, (state, { payload} ) => ({
+      ...state,
+      player: payload.player
     }))
 );

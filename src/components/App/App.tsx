@@ -6,7 +6,9 @@ import { LobbyRoute } from "../routes/LobbyRoute";
 import { NewLobbyRoute } from "../routes/NewLobbyRoute";
 import { SharedLayout } from "../SharedLayout/SharedLayout";
 import { Provider } from "react-redux";
-import { store } from "../../redux/store";
+import { createStore } from "../../redux/store";
+
+const store = createStore();
 
 export const App = () => {
   return (
