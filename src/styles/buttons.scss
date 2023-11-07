@@ -12,6 +12,7 @@
     border: 2px solid $light;
     cursor: pointer;
     height: 48px;
+    display: inline-block;
 
     &--is-loading {
       position: relative;

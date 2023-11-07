@@ -20,4 +20,10 @@ export const [
     createLobbyFailedAction
 ] = createRequestDoneFailedAction<{ lobbySize: number }, { lobby: Lobby }>('createLobby');
 
+export const [
+  leaveLobbyAction,
+  leaveLobbyDoneAction,
+  leaveLobbyFailedAction,
+] = createRequestDoneFailedAction<{lobbyCode: string; playerId: string}>('leaveLobby');
+
 export const restoreSessionAction = createAction<{player: Player, lobbyCode: string}>('restoreSession');

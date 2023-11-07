@@ -1,11 +1,12 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { Lobby, Player } from "../models";
-import { createLobbyAction, createLobbyDoneAction, createLobbyFailedAction, getLobbyAction, getLobbyDoneAction, getLobbyFailedAction, joinLobbyAction, joinLobbyDoneAction, joinLobbyFailedAction, restoreSessionAction } from "./actions";
+import { createLobbyAction, createLobbyDoneAction, createLobbyFailedAction, getLobbyAction, getLobbyDoneAction, getLobbyFailedAction, joinLobbyAction, joinLobbyDoneAction, joinLobbyFailedAction, leaveLobbyAction, leaveLobbyDoneAction, leaveLobbyFailedAction, restoreSessionAction } from "./actions";
 
 interface IState {
   isLoadingLobby: boolean;
   isJoiningLobby: boolean;
   isCreatingLobby: boolean;
+  isLeavingLobby: boolean;
   lobby?: Lobby;
   player?: Player;
 }
@@ -13,7 +14,8 @@ interface IState {
 const initialState: IState = {
   isLoadingLobby: false,
   isJoiningLobby: false,
-  isCreatingLobby: false
+  isCreatingLobby: false,
+  isLeavingLobby: false
 };
 
 export const reducer = createReducer(initialState, (builder) =>
@@ -60,5 +62,19 @@ export const reducer = createReducer(initialState, (builder) =>
     .addCase(restoreSessionAction, (state, { payload} ) => ({
       ...state,
       player: payload.player
+    }))
+    .addCase(leaveLobbyAction, state => ({
+      ...state,
+      isLeavingLobby: true
+    }))
+    .addCase(leaveLobbyDoneAction, state => ({
+      ...state,
+      lobby: undefined,
+      player: undefined,
+      isLeavingLobby: false
+    }))
+    .addCase(leaveLobbyFailedAction, state => ({
+      ...state,
+      isLeavingLobby: false
     }))
 );
