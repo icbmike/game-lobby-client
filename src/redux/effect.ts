@@ -63,7 +63,6 @@ export const leaveLobbyEffect = createMikeEffect(leaveLobbyAction, async ({ payl
     await navigate(`/`);
 
     return leaveLobbyDoneAction();
-
   }
 
   return leaveLobbyFailedAction({ error: response.error });
